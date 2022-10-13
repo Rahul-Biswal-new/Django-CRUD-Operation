@@ -1,0 +1,65 @@
+{% extends 'base.html' %}
+{% block content %}
+<style>
+    table,
+    th,
+    td {
+        border: 1px solid black;
+    }
+</style>
+<div class="row">
+    <div class="col-4">
+        <h4 class="heading">
+            Add new
+            Employee And
+            Department</h4>
+        <form action="" method="POST">
+            {% csrf_token %}
+            {{form.as_p}}
+            <input type="submit" class="button-3 align1 " name="" id="" value="Add">
+        </form>
+    </div>
+</div>
+
+<div class="">
+    <h2>Show Employee Information</h2>
+    {% if emp %}
+    <table style="width:100%">
+        <thead>
+            <tr>
+                <th>ID</th>
+                <th>Name</th>
+                <th>Department</th>
+                <th>action</th>
+
+            </tr>
+        </thead>
+        <tbody>
+            {% for st in emp %}
+            <tr>
+                <td>{{st.id}}</td>
+                <td>{{st.name}}</td>
+                <td>{{st.department}}</td>
+                <td>
+                    {% comment %} <a href="" class="button-7" role="button">add</a> {% endcomment %}
+                    <form action="{% url 'deletedata' st.id %}" method="POST">
+                        {% csrf_token %}
+                        <input type="submit" class="button-4" value="delete">
+                    </form>
+
+                </td>
+
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+    <h4>Table Data</h4>
+    {% else %}
+    <h4 class=" no-data" style="font-size: 30px">NO RECORDS FOUND</h4>
+    {% endif %}
+
+
+</div>
+
+
+{% endblock content %}
